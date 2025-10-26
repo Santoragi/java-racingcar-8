@@ -30,4 +30,18 @@ public class InputValidator {
         }
     }
 
+    public static int validateTryCount(String input) {
+        try {
+            int tryCount = Integer.parseInt(input);
+            if(tryCount <= 0) {
+                throw new IllegalArgumentException(ErrorReason.TRY_COUNT_TOO_SMALL.getMessage());
+            }
+
+            return tryCount;
+
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorReason.TRY_COUNT_NOT_NUMBER.getMessage());
+        }
+    }
+
 }

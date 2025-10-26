@@ -1,6 +1,7 @@
 package racingcar.view;
 
 import static racingcar.validator.InputValidator.validateCarNames;
+import static racingcar.validator.InputValidator.validateTryCount;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
@@ -22,9 +23,7 @@ public class ConsoleInputView implements InputView {
     public int getTryCount() {
 
         String input = Console.readLine();
-
-        //Todo: 시도 횟수 검증
-        int count = Integer.parseInt(input);
+        int count = validateTryCount(input);
 
         return count;
     }
