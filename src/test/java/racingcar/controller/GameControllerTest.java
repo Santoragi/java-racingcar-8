@@ -6,6 +6,8 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import racingcar.model.Car;
+import racingcar.model.generator.NumberGenerator;
+import racingcar.model.generator.TestNumberGenerator;
 
 public class GameControllerTest {
 
@@ -21,5 +23,35 @@ public class GameControllerTest {
         assertThat(cars)
                 .extracting(Car::getName)
                 .containsExactly("car1", "car2", "car3");
+    }
+
+    @Test
+    @DisplayName("임계값 이상인 경우 모든 자동차가 전진")
+    void 자동차_전진_테스트_임계값이상() {
+        NumberGenerator numberGenerator = new TestNumberGenerator(4);
+        GameController gameController = new GameController(null, null, numberGenerator);
+
+        List<Car> cars = List.of(new Car("car1"), new Car("car2"));
+
+        gameController.moveAll(cars);
+
+        assertThat(cars).allSatisfy(car ->
+                assertThat(car.getPosition()).isEqualTo(1)
+        );
+    }
+
+    @Test
+    @DisplayName("임계값 미만인 경우 모든 자동차가 전진하지 않음")
+    void 자동차_전진_테스트_임계값미만() {
+        NumberGenerator numberGenerator = new TestNumberGenerator(3);
+        GameController gameController = new GameController(null, null, numberGenerator);
+
+        List<Car> cars = List.of(new Car("car1"), new Car("car2"));
+
+        gameController.moveAll(cars);
+
+        assertThat(cars).allSatisfy(car ->
+                assertThat(car.getPosition()).isEqualTo(0)
+        );
     }
 }
