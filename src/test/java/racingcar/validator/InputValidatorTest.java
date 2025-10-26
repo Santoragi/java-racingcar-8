@@ -41,4 +41,37 @@ public class InputValidatorTest {
                 .hasMessage(ErrorReason.EMPTY_CAR_NAME.getMessage());
 
     }
+
+    @Test
+    @DisplayName("시도횟수가 숫자가 아닌 경우 예외 처리")
+    void 시도횟수_형식_테스트() {
+        String input = "one";
+
+        assertThatThrownBy(() -> InputValidator.validateTryCount(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorReason.TRY_COUNT_NOT_NUMBER.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("시도횟수가 0인 경우 예외 처리")
+    void 시도횟수_크기_테스트() {
+        String input = "0";
+
+        assertThatThrownBy(() -> InputValidator.validateTryCount(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorReason.TRY_COUNT_TOO_SMALL.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("시도횟수가 음수인 경우 예외 처리")
+    void 시도횟수_크기_테스트2() {
+        String input = "-1";
+
+        assertThatThrownBy(() -> InputValidator.validateTryCount(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorReason.TRY_COUNT_TOO_SMALL.getMessage());
+
+    }
 }
