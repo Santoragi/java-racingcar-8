@@ -3,6 +3,7 @@ package racingcar.controller;
 import java.util.List;
 import racingcar.model.Car;
 import racingcar.model.generator.NumberGenerator;
+import racingcar.view.GameMessage;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -19,15 +20,21 @@ public class GameController {
     }
 
     public void runRacingGame() {
+        outputView.printMessage(GameMessage.CAR_NAMES_MESSAGE);
         List<String> carNames = inputView.getCarNames();
         List<Car> cars = createCars(carNames);
 
+        outputView.printMessage(GameMessage.TRY_COUNT_MESSAGE);
         int tryCount = inputView.getTryCount();
+
+        outputView.printMessage(GameMessage.RESULT_MESSAGE);
         for(int i = 0; i < tryCount; i++) {
             moveAll(cars);
+            outputView.printRoundResult(cars);
         }
 
         List<Car> winners = getWinners(cars);
+        outputView.printWinners(winners);
 
     }
 

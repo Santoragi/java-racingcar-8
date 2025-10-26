@@ -1,6 +1,11 @@
 package racingcar.view;
 
+import java.util.List;
+import racingcar.model.Car;
+
 public interface OutputView {
 
-    void print(String output);
+    void printMessage(String output);
+    void printRoundResult(List<Car> cars);
+    void printWinners(List<Car> winners);
 }
