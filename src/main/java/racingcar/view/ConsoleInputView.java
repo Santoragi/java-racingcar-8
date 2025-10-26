@@ -1,5 +1,7 @@
 package racingcar.view;
 
+import static racingcar.validator.InputValidator.validateCarNames;
+
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 
@@ -10,8 +12,8 @@ public class ConsoleInputView implements InputView {
 
         String input = Console.readLine();
 
-        //Todo: 자동차 이름 검증
         List<String> carNames = List.of(input.split(","));
+        validateCarNames(carNames);
 
         return carNames;
     }
