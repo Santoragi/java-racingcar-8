@@ -26,4 +26,8 @@ public class Car {
     private boolean isMovable(int random) {
         return random >= MOVE_THRESHOLD;
     }
+
+    public int getPosition() {
+        return position;
+    }
 }
