@@ -54,4 +54,41 @@ public class GameControllerTest {
                 assertThat(car.getPosition()).isEqualTo(0)
         );
     }
+
+    @Test
+    @DisplayName("주어진 자동차 리스트에서 우승자 추출")
+    void 우승자_추출_테스트() {
+        GameController gameController = new GameController(null, null, null);
+        List<Car> cars = List.of(
+                new Car("car1", 1),
+                new Car("car2", 2)
+        );
+
+        List<Car> winners = gameController.getWinners(cars);
+
+        assertThat(winners)
+                .hasSize(1)
+                .extracting(Car::getName)
+                .containsExactlyInAnyOrder("car2");
+
+    }
+
+    @Test
+    @DisplayName("주어진 자동차 리스트에서 공동 우승자 추출")
+    void 공동_우승자_추출_테스트() {
+        GameController gameController = new GameController(null, null, null);
+        List<Car> cars = List.of(
+                new Car("car1", 1),
+                new Car("car2", 2),
+                new Car("car3", 2)
+        );
+
+        List<Car> winners = gameController.getWinners(cars);
+
+        assertThat(winners)
+                .hasSize(2)
+                .extracting(Car::getName)
+                .containsExactlyInAnyOrder("car2", "car3");
+
+    }
 }
